@@ -1,0 +1,80 @@
+handlers/create.go:
+package handlers
+
+import (
+	"fmt"
+	"product-management/internal/models"
+)
+
+var (
+	products []models.Product
+	nextID   int = 1
+)
+
+func CreateProduct(product models.Product) {
+	product.ID = nextID
+	nextID++
+	products = append(products, product)
+	fmt.Println("Product Created:", product)
+}
+handlers/get.go:
+package handlers
+
+import (
+	"fmt"
+)
+
+func GetProduct(id int) {
+	for _, product := range products {
+		if product.ID == id {
+			fmt.Println("Product Retrieved:", product)
+			return
+		}
+	}
+	fmt.Println("Product not found with ID:", id)
+}
+handlers/list.go:
+package handlers
+
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
+func ListProducts(userID string, priceMin, priceMax float64, nameFilter string) {
+	var filtered []Product
+	for _, product := range products {
+		if strconv.Itoa(product.UserID) != userID {
+			continue
+		}
+		if priceMin > 0 && product.ProductPrice < priceMin {
+			continue
+		}
+		if priceMax > 0 && product.ProductPrice > priceMax {
+			continue
+		}
+		if nameFilter != "" && !strings.Contains(strings.ToLower(product.ProductName), strings.ToLower(nameFilter)) {
+			continue
+		}
+		filtered = append(filtered, product)
+	}
+	if len(filtered) == 0 {
+		fmt.Println("No products found with the given filters.")
+	} else {
+		fmt.Println("Filtered Products:", filtered)
+	}
+}
+models/product.go
+package models
+
+type Product struct {
+	ID                 int
+	UserID             int
+	ProductName        string
+	ProductDescription string
+	ProductImages      []string
+	ProductPrice       float64
+}
+
+
