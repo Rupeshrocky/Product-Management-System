@@ -1,0 +1,31 @@
+package tests
+
+import (
+	"testing"
+	"product-management/internal/handlers"
+	"product-management/internal/models"
+)
+
+func TestCreateProduct(t *testing.T) {
+	product := models.Product{
+		UserID:             1,
+		ProductName:        "Test Product",
+		ProductDescription: "A sample product",
+		ProductImages:      []string{"http://example.com/image1.jpg"},
+		ProductPrice:       99.99,
+	}
+	handlers.CreateProduct(product)
+	if len(handlers.Products) != 1 {
+		t.Errorf("Expected 1 product, got %d", len(handlers.Products))
+	}
+}
+
+func TestGetProduct(t *testing.T) {
+	handlers.GetProduct(1)
+	// Add assertions based on expected behavior
+}
+
+func TestListProducts(t *testing.T) {
+	handlers.ListProducts("1", 50, 150, "Test")
+	// Add assertions based on expected behavior
+}
