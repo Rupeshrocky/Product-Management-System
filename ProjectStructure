@@ -1,0 +1,21 @@
+product-management/
+├── cmd/
+│   └── main.go  # The main entry point for the application
+├── internal/
+│   ├── handlers/
+│   │   ├── create.go
+│   │   ├── get.go
+│   │   └── list.go
+│   └── models/
+│       └── product.go
+├── config/
+│   └── config.yaml  # Configuration file for environment variables
+├── database/
+│   └── schema.sql  # SQL script for creating tables if necessary
+├── tests/
+│   └── product_test.go  # Unit and integration tests
+├── .gitignore  # Ignoring unnecessary files
+├── go.mod  # Module file
+├── go.sum  # Dependencies
+└── README.md  # Documentation
+
